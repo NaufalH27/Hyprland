@@ -1041,6 +1041,8 @@ static SDispatchResult toggleActiveFloatingCore(std::string args, std::optional<
 
     g_pCompositor->updateAllWindowsAnimatedDecorationValues();
 
+    g_pEventManager->postEvent(SHyprIPCEvent{.event="floating", .data = std::format("{:x},{}", rc<uintptr_t>(PWINDOW.get()), PWINDOW->m_isFloating)});
+
     return {};
 }
 

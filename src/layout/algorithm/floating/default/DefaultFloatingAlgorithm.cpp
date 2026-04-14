@@ -7,6 +7,7 @@
 
 #include "../../../../Compositor.hpp"
 #include "../../../../helpers/Monitor.hpp"
+#include "desktop/Workspace.hpp"
 
 using namespace Layout;
 using namespace Layout::Floating;
@@ -176,7 +177,9 @@ CBox CDefaultFloatingAlgorithm::fitBoxInWorkArea(const CBox& box, SP<ITarget> t)
 }
 
 void CDefaultFloatingAlgorithm::removeTarget(SP<ITarget> target) {
-    target->rememberFloatingSize(target->position().size());
+    if (target->fullscreenMode() == FSMODE_NONE) {
+        target->rememberFloatingSize(target->position().size());
+    }
     m_datas.erase(target);
 }
 
